@@ -1,0 +1,60 @@
+% ******************************* NUTT PhD Thesis Template **************************
+
+% Please have a look at the README.md file for info on how to use the template
+
+\documentclass[a4paper,12pt,times,twoside,print,custommargin,authoryear,PageStyleII]{PhDThesisPSnPDF}
+
+% ********************************** Preamble **********************************
+
+\input{preamble}
+
+% ********************************* Meta ********************************
+
+\input{meta}
+
+% ******************************** Front Matter ********************************
+\begin{document}
+
+\frontmatter
+
+\maketitle
+
+\include{00_abstract}
+\include{00_dedication}
+\include{00_declaration}
+\include{00_acknowledgements}
+
+% *********************** Adding TOC and List of Figures ***********************
+
+\tableofcontents
+\listoffigures
+\listoftables
+\printnomenclature
+
+% ******************************** Main Matter *********************************
+
+\mainmatter
+\include{01_Introduction}
+\include{02_SpacePlace}
+\include{03_MobileLearning}
+\include{04_PlacesAsLearningInfrastructure}
+\include{05_Design}
+\include{06_Communities}
+\include{07_Teachers}
+\include{08_Students}
+\include{09_DiscussionConclusion}
+
+
+% ********************************** References ******************************
+
+\begin{spacing}{0.9}
+\bibliographystyle{apalike}
+\cleardoublepage
+\bibliography{ThesisReferences}
+\end{spacing}
+
+
+% *************************************** Index ********************************
+\printthesisindex
+
+\end{document}
