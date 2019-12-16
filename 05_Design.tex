@@ -61,36 +61,85 @@ Activities are typically based on a particular topic, location or subject (e.g. 
   \caption{ A simple Activity in the OurPlace iPhone app. The Activity's image, title and description appear at the top, with Tasks underneath. The Task Type of each Task is made known to the user by displaying its name and icon. The screen can scroll vertically if there are more Tasks than can be displayed at once. }~\label{fig:ActivityExample}
 \end{figure*}
 
-Each Activity must also feature at least one `Task'. Tasks are modular, and each one centres around a single user interaction (e.g. `\textit{Take a Photo}'). A large number of variations (`Task Types') of Tasks are available, supporting a berth of different interactions (addresses \hyperref[DG3]{DG3}). Table \ref{tab:TaskTypes} shows all of the different Task Types available in OurPlace (note that `\textit{Scan the QR Code}' was introduced in OurPlace, and was not available in ParkLearn). An Activity can have an unlimited number of Tasks, and the learner is able to complete them in any order.
-
-\begin{table}
-  \centering
-  \begin{tabular}{l|p{110mm}}
-    % \toprule
-    {\small\textit{Task Type}}
-    & {\small \textit{Interaction Description}} \\
-    \midrule
-    \small Information & \small Read some written information, with an optional accompanying image and hyperlink \\
-    \small Listen to Audio & \small Listen to a given audio recording \\
-    \small Take a Photo & \small Use the camera to take still images \\
-    \small Photo Match & \small Use the camera to match an existing photo given as an overlay \\
-    \small Draw a Picture & \small Draw a picture onto a blank canvas \\
-    \small Draw on Photo & \small Draw on top of a given image \\
-    \small Record Video & \small Record a video using the camera \\
-    \small Record Audio & \small Record audio using the device's microphone \\
-    \small Map Marking & \small Mark a given number of locations onto a Google Map \\
-    \small Location Hunt & \small Track down a target location by observing your reported distance \\
-    \small Scan the QR Code & \small Find and scan the correct QR code \\
-    \small Multiple Choice & \small Choose a response from text options \\
-    \small Text Entry & \small Enter a response using the keyboard
-    % \bottomrule
-  \end{tabular}
-  \caption{The Task Types available in the OurPlace application}~\label{tab:TaskTypes}
-\end{table}
+Each Activity must also feature at least one `Task'. Tasks are modular, and each one centres around a single user interaction (e.g. `\textit{Take a Photo}'). A large number of variations (`Task Types') of Tasks are available, supporting a berth of different interactions (addresses \hyperref[DG3]{DG3}). Section \ref{sec:TaskTypes} describes all of the different Task Types available in OurPlace (note that `\textit{Scan the QR Code}' was introduced in OurPlace, and was not available in ParkLearn). An Activity can have an unlimited number of Tasks, and the learner is able to complete them in any order.
 
 As noted in Chapter \ref{chap:DesignSpace}, each of these interactions were chosen either because they put an element of creative control into the hands of the learner (\textit{Take a Photo, Draw a Picture, Draw on Photo, Record Video, Record Audio}) (addresses \hyperref[DG5]{DG5}), took advantage of the devices’ hardware capabilities across different contexts (\textit{Listen to Audio, Map Marking, Location Hunt, Scan the QR Code}) (addresses \hyperref[DG2]{DG2}), emulated features of the learning materials already in use by teachers and park rangers (\textit{Information, Multiple Choice, Text Entry}) (addresses \hyperref[DG3]{DG3}), or a combination of all of the above.
 
-The OurPlace app also features the concept of `Follow-Up Tasks', which were not available in ParkLearn. Follow-Up Tasks act as children to a chosen parent Task, only becoming available when the parent has been completed. For example, a Task might ask the learner to take a picture of the item in a museum they found most interesting, and then a Follow-Up Task could ask them to record an audio clip of them explaining what was interesting about it. Having this ability allows Activity designers to encourage students to reflect through the application, while still in the authentic learning environment (addresses \hyperref[DG5]{DG5}).
+\begin{figure*}
+  \centering
+  \includegraphics[width=0.8\columnwidth]{images/chapter05/FollowUpTasks.png}
+  \caption{ An example of how Follow-Up Tasks work. Completing `parent' Tasks (left) makes any Follow-Up Tasks they might have available to the learner. Follow-Up Tasks are listed below the parent, and appear on slightly smaller cards to make them visually distinct (right). }~\label{fig:FollowUpTasks}
+\end{figure*}
+
+The OurPlace app also features the concept of `Follow-Up Tasks', which were not available in ParkLearn. Follow-Up Tasks act as children to a chosen parent Task, only becoming available when the parent has been marked as completed by the system (Figure \ref{fig:FollowUpTasks}). For example, a Task might ask the learner to take a picture of the item in a museum they found most interesting, and then a Follow-Up Task could ask them to record an audio clip of them explaining what was interesting about it. Having this ability allows Activity designers to encourage students to reflect through the application, while still in the authentic learning environment (addresses \hyperref[DG5]{DG5}). In order to make learners aware of locked Follow-Up Tasks, a `\textit{Complete this to view X locked tasks!}' message is displayed upon the parent Task (Figure \ref{fig:FollowUpTasks}, left). Once the parent Task has been completed, the message changes to `\textit{Follow-Up Tasks:}' and the child Tasks are listed below the parent (Figure \ref{fig:FollowUpTasks}, right). To make the Follow-Up Tasks visually distinct, they appear on slightly smaller cards in the app's interface than their parents. Once completed, Tasks cannot be `uncompleted' (e.g. by deleting all taken photos), meaning that unlocked Follow-Up Tasks will remain available unless the Activity's progress is completely reset.
+
+
+\subsection{Overview of Task Types}
+\label{sec:TaskTypes}
+Below are all of the Task Types available to users creating Activities in the OurPlace application. Unless noted otherwise, the functionality of each Task Type was identical between ParkLearn and OurPlace. All Task Types contain a some sort of textual description or instruction, with a `text to speech' button which reads the description aloud when pressed. If a Task has an interaction for the learner to perform, it will either be assigned to an `action button' (e.g. `TAKE PHOTO' and `START' in Figure \ref{fig:FollowUpTasks}) which will navigate to a new screen in the app, or take place on the Activity's main screen (e.g. Multiple Choice and Text Entry in Figure \ref{fig:TaskTypes3}). 
+
+\begin{figure*}
+  \centering
+  \includegraphics[width=1\columnwidth]{images/chapter05/tasktypes1.png}
+  \caption{Task Types (left to right): a) Information; b) Listen to Audio; c) Take a Photo; d) Photo Match}~\label{fig:TaskTypes1}
+\end{figure*}
+
+\subsubsection*{Information}
+One of the simple Task Types, this presents the learner with a piece of text to read. Optionally, the Activity author can also choose to include an image to accompany the text, as well as a hyperlink to a related web page. If included, the hyperlink is assigned to the Task's action button, which will open the address in the device's default web browser when pressed (Figure \ref{fig:TaskTypes1}.a). because they are passive (and the action button is optional), Information Tasks are marked as completed by default, meaning any Follow-Up Tasks are immediately visible.
+
+\subsubsection*{Listen to Audio}
+The learner is given an audio recording to listen to. Tapping the Task's action button will open up a media player screen, where the audio file plays on a loop until closed (Figure \ref{fig:TaskTypes1}.b). The Task is marked as completed when the media player is closed. The original ParkLearn application was slightly different, in that the audio played from the Activity's main screen, with a simple `stop' button being shown on a pop-up.
+    
+\subsubsection*{Take a Photo}
+The learner is asked to take one or more photos of a subject. The action button opens up a simple camera screen (Figure \ref{fig:TaskTypes1}.c). While applications would usually use the device's default camera application, the app's other camera-related Task Types have more complex requirements requiring custom solutions, and the custom camera screen is also used here for the sake of consistency. When a photo is taken, the camera closes and returns to the Activity screen. Multiple photos can be taken, and they are listed below the Task's action button (Figure \ref{fig:MediaViewer}.a). Tapping one of these will open it in the media viewer screen, where the user can see a larger view of the photo and can delete it by tapping a bin icon (Figure \ref{fig:MediaViewer}.b). The original ParkLearn app did not have this media viewer screen, however unwanted images could be deleted by tapping and holding them.
+
+\begin{figure*}
+  \centering
+  \includegraphics[width=0.65\columnwidth]{images/chapter05/mediaViewer.png}
+  \caption{(left to right): a) Resulting images from `Take a Photo' are listed below the Task on the Activity screen. b) Tapping one opens it on the media viewer screen, where the option to delete the item is available.}~\label{fig:MediaViewer}
+\end{figure*}
+
+\subsubsection*{Photo Match}
+This is similar to `Take a Photo', in that the learner is asked to take one or more photos of a subject. However, the camera screen shows a semi-transparent overlay of another image on top of the camera feed (Figure \ref{fig:TaskTypes1}.d). The Activity author provides an image of their own choosing (e.g. a photo they have taken, or downloaded from the Internet). Viewing and deleting resulting images is handled the same as in Take a Photo.
+
+\begin{figure*}
+  \centering
+  \includegraphics[width=1\columnwidth]{images/chapter05/tasktypes2.png}
+  \caption{Task Types (left to right): a) Draw a Picture; b) Draw on Photo; c) Record Video (rotated); d) Record Audio}~\label{fig:TaskTypes2}
+\end{figure*}
+
+\subsubsection*{Draw a Picture}
+The learner is asked to draw a picture, using a basic painting interface which is launched by tapping the Task's action button. A wide variety of colours can be selected using the selector at the top of the screen, and drawn onto a blank white canvas (Figure \ref{fig:TaskTypes2}.a). Tapping the save icon will save the drawing as a JPEG file and return to the Activity screen, where it can be viewed/deleted in the same way as photo files. Multiple drawings can be made.
+
+\subsubsection*{Draw on Photo}
+Functionally the same as `Draw a Picture', however the blank white canvas is replaced by a supplied image (Figure \ref{fig:TaskTypes2}.b). The Activity author can either provide an image of their own choosing (e.g. a photo they have taken, or downloaded from the Internet), or---if this is a Follow-Up Task to an appropriate parent, such as a Take a Photo or Photo Match---have the overlay be one of the images taken by the learner in the parent Task. Images can be viewed and deleted in the same way as other photos and drawings.
+
+\subsubsection*{Record Video}
+Learners are asked to record a video of a subject using the camera, which is launched by tapping the action button. The camera screen is locked in the landscape orientation, and features a help button which will show the Task's description/instruction when pressed (Figure \ref{fig:TaskTypes2}.c). Recording starts when the shutter button is tapped, at which point the button turns red. To minimise storage issues, a custom video recorder screen was needed, which capped recordings at 10 minutes in length and at a 720p resolution. When the shutter button is pressed again (or the 10 minutes elapses), the video is saved and the user is returned to the Activity screen. Multiple videos can be recorded, and thumbnails for each are listed below the Task (as with the photo results). Tapping a video file will open it in the media screen, where it can be replayed and deleted if necessary.
+
+\subsubsection*{Record Audio}
+Learners are asked to record an audio clip, using the device's microphone. Tapping the action button opens a separate screen, showing a start/stop record button, record timer and the current Task's instruction for easy reference (Figure \ref{fig:TaskTypes2}.d). After pressing stop to finish the recording, the learner can immediately listen back to it and confirm they're happy with it, before it's saved and they are returned back to the Activity screen. Recorded audio clips are listed below the task, and tapping one will open it in the media screen, where it can be replayed and deleted if necessary.
+
+\begin{figure*}
+  \centering
+  \includegraphics[width=1\columnwidth]{images/chapter05/tasktypes3.png}
+  \caption{Task Types (left to right): a) Map Marking; b) Location Hunt; c) Multiple Choice; d) Text Entry}~\label{fig:TaskTypes3}
+\end{figure*}
+
+\subsubsection*{Map Marking}
+This is the only Task Type which requires an active Internet connection during use, and so was the least frequently used in every study. It asks learners to mark a given number of locations onto a Google Map (Figure \ref{fig:TaskTypes3}.a). The user's current location is shown on the map by a blue dot. Map markers can either be placed on the user's current location, or at custom locations by the learner tapping the map. The Activity's author can restrict the learner to only placing markers on their current location, if desired (meaning that learners have to physically travel to places they want to mark). Placed markers can be deleted by tapping them. The author can also configure the minimum and maximum number of markers the learner is required to put down before completing the Task (can be set as unlimited by putting a zero as the maximum). Completing the Task will result in a small, non-interactive version of the map being shown under the Task on the Activity screen. When tapped, this will re-open the full map for editing.
+
+\subsubsection*{Location Hunt}
+This uses the device's GPS, like Map Marking, but doesn't require an active Internet connection. Learners are asked to track down a target location. Tapping the action button will open a screen showing the device's distance from the target and the device's current GPS accuracy (Figure \ref{fig:TaskTypes3}.b). A large graphic performs a `breathing' animation, getting faster/slower as the user gets closer/further away from the target. A beep is also played each time the animation loops, giving the impression of a `GPS metal detector'. Once the learner is within 10 metres of the target, a pop-up notification is shown notifying them of their arrival, and the Task is marked as completed. The OurPlace app introduced the ability for Activity authors to choose to allow learners to open up a route to the target location in Google Maps, which requires an active Internet connection.
+
+\subsubsection*{Scan the QR Code}
+Learners are asked to find and scan a specific QR (Quick Response) code, with the Task's instruction ideally acting as a clue to find it. Tapping the action button opens up the application's built-in QR code scanner. Scanning the wrong code shows a failure message (`That's not it!'), while finding and scanning the correct code completes the Task. The Activity's author can view and print its QR codes from the OurPlace website. This Task Type was introduced in OurPlace, primarily to support `Location Hunt' style Tasks indoors, where GPS might not work properly.
+
+\subsubsection*{Multiple Choice}
+Learners are asked to choose one of (at least two) different text options. Options are presented as a list of radio buttons, on the main Activity screen (Figure \ref{fig:TaskTypes3}.c). The Task is marked as completed once an item is chosen.
+
+\subsubsection*{Text Entry}
+Learners are asked to enter some text into a text field on the main Activity screen (Figure \ref{fig:TaskTypes3}.d). The keyboard available for typing on varies by device, however some keyboards allow for `voice typing', where the learner speaks into the microphone and text is transcribed in real time. Regardless of input method, the Task is marked as completed once at least one character has been entered into the text field. 
 
 \subsection{Creating Activities}
 
