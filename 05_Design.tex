@@ -49,6 +49,8 @@ As discussed in sections \ref{sec:DigitalCivics} and \ref{sec:ParkContext}, the 
 
 ParkLearn, the prototype application discussed in Chapter \ref{chap:DesignSpace}, was further developed to meet these design goals. While the early version was created as a simple proof of concept and acted as a technology probe, later versions featured far greater functionality. This section will detail the application: its features, its implementation, and how it evolved over time into the later OurPlace app. As the two versions are extremely similar, for the sake of clarity `OurPlace' will be used as the application's name for the rest of this chapter. Significant differences in the two applications' features or implementations will be noted explicitly.
 
+The main screen of the OurPlace app consists of two main sections, separated by tabs: `Highlights', which shows public content created by all users, and `My Creations', which lists the content created by the current user. This section details the nature of this content, how it is experienced by learners, how users can create their own, and how it can be shared with others.
+
 \subsection{The Anatomy of an Activity}
 \label{sec:ActivityOverview}
 Core to the OurPlace application is the concept of `Activities'. In terms of user interaction, they are the more or less the same as the ones introduced in the prototype ParkLearn application, based on the original jigsaw workshop activity (Figure \ref{fig:rangerJigsaw}). While the Activities in the prototype version were hard-coded into the application, later versions allowed users to create their own Activities, or complete other people's. They are delivered to the mobile app by the remote server in the standard JSON data format (see section \ref{sec:ImplementationWeb}), allowing for the app to allow users to discover and open Activities in numerous ways (see section \ref{sec:SharingActivities}).
@@ -58,7 +60,7 @@ Activities are typically based on a particular topic, location or subject (e.g. 
 \begin{figure*}
   \centering
   \includegraphics[width=0.85\columnwidth]{images/chapter05/activity.png}
-  \caption{ A simple Activity in the OurPlace iPhone app. The Activity's image, title and description appear at the top, with Tasks underneath. The Task Type of each Task is made known to the user by displaying its name and icon. The screen can scroll vertically if there are more Tasks than can be displayed at once. }~\label{fig:ActivityExample}
+  \caption[A simple OurPlace Activity]{ A simple Activity in the OurPlace iPhone app. The Activity's image, title and description appear at the top, with Tasks underneath. The Task Type of each Task is made known to the user by displaying its name and icon. The screen can scroll vertically if there are more Tasks than can be displayed at once. }~\label{fig:ActivityExample}
 \end{figure*}
 
 Each Activity must also feature at least one `Task'. Tasks are modular, and each one centres around a single user interaction (e.g. `\textit{Take a Photo}'). A large number of variations (`Task Types') of Tasks are available, supporting a berth of different interactions (addresses \hyperref[DG3]{DG3}). Section \ref{sec:TaskTypes} describes all of the different Task Types available in OurPlace (note that `\textit{Scan the QR Code}' was introduced in OurPlace, and was not available in ParkLearn). An Activity can have an unlimited number of Tasks, and the learner is able to complete them in any order.
@@ -68,7 +70,7 @@ As noted in Chapter \ref{chap:DesignSpace}, each of these interactions were chos
 \begin{figure*}
   \centering
   \includegraphics[width=0.8\columnwidth]{images/chapter05/FollowUpTasks.png}
-  \caption{ An example of how Follow-Up Tasks work. Completing `parent' Tasks (left) makes any Follow-Up Tasks they might have available to the learner. Follow-Up Tasks are listed below the parent, and appear on slightly smaller cards to make them visually distinct (right). }~\label{fig:FollowUpTasks}
+  \caption[Follow-Up Task example]{An example of how Follow-Up Tasks work. Completing `parent' Tasks (left) makes any Follow-Up Tasks they might have available to the learner. Follow-Up Tasks are listed below the parent, and appear on slightly smaller cards to make them visually distinct (right). }~\label{fig:FollowUpTasks}
 \end{figure*}
 
 The OurPlace app also features the concept of `Follow-Up Tasks', which were not available in ParkLearn. Follow-Up Tasks act as children to a chosen parent Task, only becoming available when the parent has been marked as completed by the system (Figure \ref{fig:FollowUpTasks}). For example, a Task might ask the learner to take a picture of the item in a museum they found most interesting, and then a Follow-Up Task could ask them to record an audio clip of them explaining what was interesting about it. Having this ability allows Activity designers to encourage students to reflect through the application, while still in the authentic learning environment (addresses \hyperref[DG5]{DG5}). In order to make learners aware of locked Follow-Up Tasks, a `\textit{Complete this to view X locked tasks!}' message is displayed upon the parent Task (Figure \ref{fig:FollowUpTasks}, left). Once the parent Task has been completed, the message changes to `\textit{Follow-Up Tasks:}' and the child Tasks are listed below the parent (Figure \ref{fig:FollowUpTasks}, right). To make the Follow-Up Tasks visually distinct, they appear on slightly smaller cards in the app's interface than their parents. Once completed, Tasks cannot be `uncompleted' (e.g. by deleting all taken photos), meaning that unlocked Follow-Up Tasks will remain available unless the Activity's progress is completely reset.
@@ -81,7 +83,7 @@ Below are all of the Task Types available to users creating Activities in the Ou
 \begin{figure*}
   \centering
   \includegraphics[width=1\columnwidth]{images/chapter05/tasktypes1.png}
-  \caption{Task Types (left to right): a) Information; b) Listen to Audio; c) Take a Photo; d) Photo Match}~\label{fig:TaskTypes1}
+  \caption[Task Types (part 1)]{Task Types (left to right): a) Information; b) Listen to Audio; c) Take a Photo; d) Photo Match}~\label{fig:TaskTypes1}
 \end{figure*}
 
 \subsubsection*{Information}
@@ -96,7 +98,7 @@ The learner is asked to take one or more photos of a subject. The action button 
 \begin{figure*}
   \centering
   \includegraphics[width=0.65\columnwidth]{images/chapter05/mediaViewer.png}
-  \caption{(left to right): a) Resulting images from `Take a Photo' are listed below the Task on the Activity screen. b) Tapping one opens it on the media viewer screen, where the option to delete the item is available.}~\label{fig:MediaViewer}
+  \caption[OurPlace's media viewer]{(left to right): a) Resulting images from `Take a Photo' are listed below the Task on the Activity screen. b) Tapping one opens it on the media viewer screen, where the option to delete the item is available.}~\label{fig:MediaViewer}
 \end{figure*}
 
 \subsubsection*{Photo Match}
@@ -105,7 +107,7 @@ This is similar to `Take a Photo', in that the learner is asked to take one or m
 \begin{figure*}
   \centering
   \includegraphics[width=1\columnwidth]{images/chapter05/tasktypes2.png}
-  \caption{Task Types (left to right): a) Draw a Picture; b) Draw on Photo; c) Record Video (rotated); d) Record Audio}~\label{fig:TaskTypes2}
+  \caption[Task Types (part 2)]{Task Types (left to right): a) Draw a Picture; b) Draw on Photo; c) Record Video (rotated); d) Record Audio}~\label{fig:TaskTypes2}
 \end{figure*}
 
 \subsubsection*{Draw a Picture}
@@ -123,7 +125,7 @@ Learners are asked to record an audio clip, using the device's microphone. Tappi
 \begin{figure*}
   \centering
   \includegraphics[width=1\columnwidth]{images/chapter05/tasktypes3.png}
-  \caption{Task Types (left to right): a) Map Marking; b) Location Hunt; c) Multiple Choice; d) Text Entry}~\label{fig:TaskTypes3}
+  \caption[Task Types (part 3)]{Task Types (left to right): a) Map Marking; b) Location Hunt; c) Multiple Choice; d) Text Entry}~\label{fig:TaskTypes3}
 \end{figure*}
 
 \subsubsection*{Map Marking}
@@ -141,12 +143,24 @@ Learners are asked to choose one of (at least two) different text options. Optio
 \subsubsection*{Text Entry}
 Learners are asked to enter some text into a text field on the main Activity screen (Figure \ref{fig:TaskTypes3}.d). The keyboard available for typing on varies by device, however some keyboards allow for `voice typing', where the learner speaks into the microphone and text is transcribed in real time. Regardless of input method, the Task is marked as completed once at least one character has been entered into the text field. 
 
+\subsection{Completing Activities}
+
+Once Activities are opened, they (and the files they depend on, such as images and audio) are cached by the application so that they can be accessed without an Internet connection. By default the app caches up to four Activities at a time, cycling them out according to date last accessed. This default limit was put in place to avoid taking up too much device storage with old Activities, however it can be increased up to 20 cached Activities in the app's settings. These features were implemented to address \hyperref[DG6]{DG6}.
+
+Tasks within Activities (with the exception of Follow-Up Tasks) can be completed in any order. The learner can tap `Finish' to complete the Activity at any time, even if there are Tasks which have not been completed. ParkLearn initially required that all Tasks be responded to, however this resulted in teachers and researchers entering `junk' data in order to upload responses by students who hadn't fully finished. After the learner taps Finish, the application checks if there are responses to upload (e.g. entered text, photos, audio clips etc). If there are, these are packaged up and added to an upload queue, and the user's progress through the Activity is reset to allow another learner to start it afresh. Having an upload queue also allows for teachers to upload the student's work on return to the classroom, avoiding the need for slow and costly mobile data plans (these features also address \hyperref[DG6]{DG6}). If the Activity was made by another user, the application will also ask the learner if they wish to share their results/creations with the Activity's author.
+
 \subsection{Creating Activities}
+
+To make Activity creation as accessible and intuitive as possible, the entire process takes place inside of the OurPlace mobile app. This means no additional equipment is required, and allows the designer to create the Activity in situ if they wish (addresses \hyperref[DG5]{DG5}). To make the experience as consistent as possible, the creation process uses the same iconography and similar functionality and layouts to the ones seen by learners when completing Activities (addresses \hyperref[DG4]{DG4}). This means that introducing users to the application through consuming an example Activity will likely help them understand the creation process. 
+
+
+
+After supplying a title, description and an optional image, the designer creates the Actions that make up the Activity. Every Action Type requires at least some form of written instruction/information, but some also require or allow additional customization (addresses \hyperref[DG3]{DG3}). Activities can be either public or privately accessible, as well as associated with nearby places of interest (addresses \hyperref[DG1]{DG1}). Once uploaded, users can access their Activities from the ‘My Activities’ tab, where they can view their share codes, use them as a learner or delete them
 
 \begin{figure*}
   \centering
-  \includegraphics[width=1\columnwidth]{images/chapter05/activityCreation}
-  \caption{Creating an OurPlace activity (left to right): a) Choosing the activity's title, description and image; b) Choosing a Task Type to add; c) Adding a \textit{Location Hunt} Task, with description and target coordinates; d) The new Task in the Activity; e) Adding Follow-Up Tasks to the \textit{Location Hunt}  }~\label{fig:ActivityCreation}
+  \includegraphics[width=1\columnwidth]{images/chapter05/creation.png}
+  \caption[Creating an OurPlace activity]{Creating an OurPlace activity (clockwise, from top left): a) Choosing the activity's title, description and image; b) The Activity overview screen; c) Choosing a Task Type to add; d) Adding a basic \textit{Take a Photo} Task, with a description, e) Adding a more complicated \textit{Location Hunt} Task, with description and target coordinates; f) The new Tasks in the Activity overview; g) Adding Follow-Up Tasks to the \textit{Location Hunt}; h) The final touches before uploading }~\label{fig:ActivityCreation}
 \end{figure*}
 
 \subsection{Sharing, Discovering and Launching Activities}
@@ -155,8 +169,6 @@ Learners are asked to enter some text into a text field on the main Activity scr
 \subsubsection{The Highlights Feed and Location}
 
 \subsubsection{Share Codes and QR Codes}
-
-\subsection{Completing Activities}
 
 \section{Implementation of the OurPlace Mobile Applications}
 \label{sec:ImplementationMobile}
@@ -173,11 +185,6 @@ Learners are asked to enter some text into a text field on the main Activity scr
 
 
 \subsection{The OurPlace App}
-
-OurPlace is the current iteration of the open-source ParkLearn platform, with an expanded feature set and re-branded to support its use in contexts outside of local parks \citep{Richardson2018a}. Consisting of a website and mobile applications for both Android and iOS, OurPlace supports the creation of--and sharing and engagement with--m-learning activities (`Activities'), each of which is built up from smaller, modular tasks (`Tasks'). These tasks each consist of a specific interaction (`Task Type'), which either promote creativity, emulate traditional classroom learning materials or use the device's hardware to give context-specific experiences (Table~\ref{tab:TaskTypes}). With the exception of \textit{Scan the QR Code}, all of these Task Types were present in the original ParkLearn application. OurPlace also adds support for `Follow-Up Tasks', which allow activity creators to add sub-tasks which unlock once their parent task has been completed (Figure~\ref{fig:ActivityCreation}.e). This supports the design of more complicated combinations of interactions (for example: a \textit{Location Hunt} could unlock a \textit{Record Audio} and \textit{Take a Photo} once the user arrives at a designated location).
-
-
-Activities are created within the app itself. After supplying a title, description and an optional image (Figure~\ref{fig:ActivityCreation}.a), the designer creates the Tasks that make up the Activity (Figure~\ref{fig:ActivityCreation}.b). Each Task Type requires at least a written instruction for the learner (e.g. A \textit{Location Hunt} might say \textit{`Can you find Carter's Well?'}), but some of them require some additional customization (e.g. supplying geographic coordinates by tapping on a Google Maps view) (Figure~\ref{fig:ActivityCreation}.c). No additional equipment or software is required to create activities (other than \textit{Scan the QR Code}, which requires creators to print the generated QR code from the OurPlace website). Uploaded activities can be edited for testing, feedback and iteration--allowing for the `essential elements' of reflection, critique and revision of a final public product \citep{Larmer2015}. 
 
 \section{Implementation of the API and Website}
 \label{sec:ImplementationWeb}
