@@ -49,7 +49,7 @@ As discussed in sections \ref{sec:DigitalCivics} and \ref{sec:ParkContext}, the 
 
 ParkLearn, the prototype application discussed in Chapter \ref{chap:DesignSpace}, was further developed to meet these design goals. While the early version was created as a simple proof of concept and acted as a technology probe, later versions featured far greater functionality. This section will detail the application: its features, its implementation, and how it evolved over time into the later OurPlace app. As the two versions are extremely similar, for the sake of clarity `OurPlace' will be used as the application's name for the rest of this chapter. Significant differences in the two applications' features or implementations will be noted explicitly.
 
-The main screen of the OurPlace app consists of two main sections, separated by tabs: `Highlights', which shows public content created by all users, and `My Creations', which lists the content created by the current user. This section details the nature of this content, how it is experienced by learners, how users can create their own, and how it can be shared with others.
+The main screen of the OurPlace app consists of two main sections, separated by tabs: `Highlights', which shows public content created by all users, and `My Creations', which lists the Creations (Activities and/or Collections) created by the current user. This section details the nature of this content, how it is experienced by learners, how users can create their own, and how it can be shared with others.
 
 \subsection{The Anatomy of an Activity}
 \label{sec:ActivityOverview}
@@ -169,128 +169,82 @@ Follow-Up Tasks can be added by simply tapping the `Add Follow-Up Tasks' button 
 
 Once happy with their Activity, the author presses `Finish' and is shown a `Final Touches' screen (Figure \ref{fig:ActivityCreation}.h). Here they can configure some of the metadata attached to their Activity. They can choose whether their Activity should be publicly accessible or private, which will affect how others are able to access it (discussed in Section \ref{sec:SharingActivities}). Activities are set to public by default, to encourage a greater amount of content to be made accessible on the platform. Authors can also choose to associate the Activity with multiple locations (i.e. if the Activity is about that location). Places are selected through the Google Maps app and searching using the Google Places API. Finally, the author is given the option of requiring learners to enter their name before submitting responses to the Activity. This is particularly useful to allow teachers to differentiate between students' submissions when they share devices and/or OurPlace accounts (addresses \hyperref[DG6]{DG6}).
 
-After the author applies these final touches and taps `Finish and Upload', the Activity is packaged up and added to the upload queue. Once uploaded, users can access their Activities from the ‘My Creations’ tab on the app's main screen. Here they can view their Activities' share codes (see below), delete them or open and experience the Activities as a learner.
+After the author applies these final touches and taps `Finish and Upload', the Activity is packaged up and added to the upload queue. Once uploaded, users can access their Activities from the ‘My Creations’ tab on the app's main screen. Here they can view their Activities' share codes (see below), delete them, edit them or open and experience the Activities as a learner. Whilst creating an Activity the author's progress is saved every time a change is made, reducing the chances of progress being lost. Authors can resume the creation of unfinished Activities, meaning that they can be more easily created across several sessions and/or locations (\hyperref[DG2]{DG2}, \hyperref[DG6]{DG6}). However, whilst editing an Activity changes are not cached offline, in order to avoid confusion related to having several versions at once. Instead, the author must make the changes and immediately upload the new Activity.
+
+After an Activity marked `public' is uploaded, it must be approved by a `trusted user' (i.e. a researcher) before other users can see it as a public Activity (see Section \ref{sec:SharingActivities}). Until then, it is treated as if it is private. Activities created by administrators are automatically approved and are immediately made public.
 
 \subsection{Activity Collections}
-Late into the project, the ability to create Collections was added in response to users' feedback. As their name implies, Collections are simply selections of existing Activities which share a commonality. They were added to the app for creations such as trails, where users wanted to have a full Activity's features at each stop, rather than being limited to a \textit{Location Hunt} and Follow-Up Tasks. Having opened a Collection, learners can optionally do a \textit{Location Hunt} to any Activities which have a location associated with them. As of writing, only the Android version of OurPlace supports Collections.
+Late into the project, the ability to create Collections was added in response to users' feedback. As their name implies, Collections are simply selections of existing Activities which share a commonality. They were added to the app for creations such as trails, where users wanted to have a full Activity's features at each stop, rather than being limited to a \textit{Location Hunt} and Follow-Up Tasks. Having opened a Collection, learners can optionally do a \textit{Location Hunt} to any Activities which have a location associated with them. At the time of writing, only the Android version of OurPlace supports Collections. After the introduction of Collections, the `My Activities' tab was renamed to `My Creations'.
 
 \begin{figure*}
   \centering
-  \includegraphics[width=0.7\columnwidth]{images/chapter05/CreateCollection.png}
+  \includegraphics[width=0.55\columnwidth]{images/chapter05/CreateCollection.png}
   \caption[Creating an OurPlace Activity Collection]{Creating an OurPlace Activity Collection. Left to Right: A) The Collection creation screen looks very similar to the interface for Activity creation, with Activities listed instead of Tasks. B) The author's created Activities are listed for easy access, but they can also add other users' Activities by entering a Share Code or scanning a QR Code. }~\label{fig:CollectionCreation}
 \end{figure*}
 
-Collections are created in a very similar manner to Activities, with some of the screens being identical . A creator can give their Collections a title, description and optional image. Rather than adding Tasks, they add Activities (Figure \ref{fig:CollectionCreation}.A). When adding an Activity to the Collection, the user is presented with their previously uploaded Activities for easy access (Figure \ref{fig:CollectionCreation}.B). Should they want to create a Collection which includes other users' created Activities, they can select them either by entering the Activity's Share Code or scanning its QR Code. Once finished adding Activities, users then note whether the Collection should be publicly accessible and what locations the Collection should be associated with (the list of places is auto-populated with the selected Activities' associated locations).
+Collections are created in a very similar manner to Activities, with some of the screens being identical. A creator can give their Collections a title, description and optional image. Rather than adding Tasks, they add Activities (Figure \ref{fig:CollectionCreation}.A). When adding an Activity to the Collection, the user is presented with their previously uploaded Activities for easy access (Figure \ref{fig:CollectionCreation}.B). Should they want to create a Collection which includes other users' created Activities, they can select them either by entering the Activity's Share Code or scanning its QR Code (detailed in Section \ref{sec:SharingActivities}). Once finished adding Activities, users then note whether the Collection should be publicly accessible and what locations the Collection should be associated with (the list of places is auto-populated with the selected Activities' associated locations). As Collections are associated with Activities rather than copying/containing them, if an Activity held by a Collection is edited and updated, the Collection will reflect those changes. Collections go through the same approval process as Activities.
 
-\subsection{Sharing, Discovering and Launching Activities}
+\subsection{Sharing, Discovering and Launching Creations}
 \label{sec:SharingActivities}
 
-
+In order to promote the use of the OurPlace app in authentic learning contexts (\hyperref[DG1]{DG1}, \hyperref[DG5]{DG5}, \hyperref[DG6]{DG6}) whilst also being adaptable to the various requirements of teachers, learners and place stakeholders (\hyperref[DG2]{DG2}, \hyperref[DG3]{DG3}, \hyperref[DG6]{DG6}), there needed to be a variety of options for content discovery and consumption. Key to our response to this issue was the choice to have the Creation author be in control of whether an Creation is public or private. Once approved by a trusted user, public Creations become visible in other users' Highlights Feed, while authors of private Creations have much more control over who can see them. 
 
 \subsubsection{The Highlights Feed and Location}
+Approved public Creations can appear in other users' Highlights Feed. As this tab is shown to all users upon opening the application, it means that many users will potentially see anything posted onto it. There are two ways that Creations can appear on the Highlights Feed: either by being one of the most recently uploaded pieces of content (and shown in a `Recently Uploaded' section of the feed), or being associated with a location which the user is close to. If the user has granted OurPlace permission to access their location, the server will return any and all places within 2.5km of the user which have Creations associated with them. These Creations are then listed in separate sections of the Highlights Feed, with one section for each location. This way, the system will always provide the user with some content, but prioritises Creations which have been made nearby (\hyperref[DG1]{DG1}, \hyperref[DG5]{DG5}) without the need for any additional user input (\hyperref[DG4]{DG4}).
 
 \subsubsection{Share Codes and QR Codes}
+All Creations, both public and private, have unique six character `share codes' associated with them. Authors can see the code for a Creation by tapping it in the `My Creations' tab, or by going onto the `Your Activities' section of the OurPlace website. Authors can then share this code with other users. The code can be entered (case insensitive, for ease of use) into the app's search function, which will immediately launch the Creation. Once opened, the Creation is cached so that the code doesn't have to be entered again to re-open it. 
 
-\section{Implementation of the OurPlace Mobile Applications}
-\label{sec:ImplementationMobile}
+QR Codes are also generated for each uploaded Creation, and made available to authors on the OurPlace website. The OurPlace app includes a simple QR code scanner, which will immediately launch a recognised Creation upon a successful scan. If the QR code is scanned on a device outside of the OurPlace app, the device's operating system will suggest that OurPlace be used to open the QR code if it is installed. If the app isn't installed, the user is taken to a web page with some information about the scanned Creation, and instructions for installing the OurPlace app to open it.
 
-\subsection{Improvements over ParkLearn}
+As these are the only methods of finding and launching private Creations, authors can have much greater control of who can access their creations, as well as where and when they do so (\hyperref[DG3]{DG3}). For example, a teacher can show Creations' share/QR codes on their classroom projector, so that students can easily download particular Creations prior to a school trip (\hyperref[DG2]{DG2}). Place stakeholders could also ensure that a Creation could only be accessed at a particular location by making it private, and featuring a QR code on an interpretation board (\hyperref[DG5]{DG5}). 
 
-\subsubsection{Developing the iOS Application}
-
-\subsubsection{Adding Follow-Up Tasks}
-
-\subsubsection{QR Code Task Types}
-
-\subsubsection{Other General Improvements}
-
-
-\subsection{The OurPlace App}
-
-\section{Implementation of the API and Website}
+\section{The OurPlace Website}
 \label{sec:ImplementationWeb}
+In order for the OurPlace application to support the uploading and downloading of user Creations, responses and media, a remote web component was required. OurPlace's online server features both a website (for user-facing interactions) and an API (for the app's networking features). These are hosted within the European Economic Area on Microsoft's Azure Cloud infrastructure, using Azure's App Service and Storage systems for computation, networking and blob (file) storage.
 
-\section{Development of the Technology}
+The OurPlace website exists primarily as a management tool for the user's OurPlace content. Users can log into the website using the same account as they use for the mobile application, and are able to view their uploaded Activities (at the time of writing, Collections are not yet shown on the website) and responses, as well as responses to their created Activities (access given with the learner's consent). Activities cannot be created or opened through the website, although this functionality has been frequently requested. 
 
-\subsection{Why use the Xamarin framework?}
-The OurPlace platform is a system consisting of smartphone applications for the
-Android and iOS (Apple iPhone and iPad) operating systems, a website and an
-online application programming interface (API). It was decided that in order to
-support as many schools, groups and individuals as possible, both of the main
-smartphone OSs should be supported (Android and iOS). Furthermore, in order to
-provide a high quality experience which conformed to each platform's expected
-design metaphors,  supported access to all of the devices' hardware features and
-didn't require a constant internet connection, I decided to produce `native'
-applications for each platform (that is, rather than produce something like a
-website which would be the same across all platforms). Ordinarily, this would
-result in having to produce software in multiple programming languages: for
-example, Android applications are usually written in either Java or Kotlin,
-whereas iPhone apps are written in Objective-C, which is very different. As the
-project was mostly a one-man show, dedicating large amounts of time to learning,
-developing, iterating and maintaining systems across multiple languages was
-unrealistic. 
+\begin{figure*}
+  \centering
+  \includegraphics[width=0.85\columnwidth]{images/chapter05/webActivities.png}
+  \caption[The OurPlace website: the user's Activities]{Viewing the user's created Activities on the OurPlace website. Top: the user can see all of their uploaded Activities on the website. Bottom: When an Activity is clicked, the user is shown some extra details, including its share code and QR code, as well as links to any QR codes needed for `Scan the QR Code' Tasks.}~\label{fig:websiteActivities}
+\end{figure*}
 
-In the end, the decision was made to develop the mobile applications using the
-Xamarin framework. This framework takes code written in C\# and compiles it into
-`native' applications, meaning that apps look, feel and act like software
-written in the different platforms' specific languages. This gave the advantage
-of sharing the same programming language across both applications, without
-losing out on any major features and allowing for common code (functionality
-identical across the two applications, e.g. making requests to the server) to be
-shared across the projects. To fully capitalise on this code sharing advantage,
-it was decided to take this further and produce the website and API in C\#. As a
-result, every component of the OurPlace platform can be opened within the same
-Visual Studio `solution', significantly speeding up the development process.
+Instead, the website is designed to be used for reviewing existing content. The `Your Activities' page will list all of the user's uploaded Activities (Figure \ref{fig:websiteActivities}). When one is clicked, the user can see the Activity's QR and share codes, how many times that page has been accessed (i.e. how many times that QR code has been scanned), and access any QR codes needed to be printed for `Scan the QR Code' Tasks. The `Your Uploads' lists all of the user's uploaded responses to Activities (Figure \ref{fig:websiteResults}). If an Activity requires that the learner enter their name before submission, the name will be displayed on the submission's card on this page (useful for when different people will be using the same device/account, addressing \hyperref[DG6]{DG6}). When a submission is clicked, the user is taken to a page where they can view the submission in its entirety. This page shows each Task in the Activity, in a format extremely similar to that found in the mobile app (\hyperref[DG4]{DG4}). The page's large elements are designed to be suitable for use on large displays, with the intention of supporting viewing submissions on devices such as classroom projectors (\hyperref[DG2]{DG2}). All submitted text, audio, video, images and map data can be viewed, and the user can enlarge the visual media for a closer look.
 
-\subsection{Disadvantages to using Xamarin}
-While developing the mobile applications with the Xamarin framework
-significantly reduced to upfront time investment in the development process, it
-certainly had its trade-offs which became more apparent as the project grew.
-Having all of the OurPlace code available within one solution (discussed in
-\ref{sec:OurPlaceSolution}) was certainly convenient and minimised code
-duplication, but when combined with Xamarin's more demanding build process it
-created large performance overheads. This, combined with issues of documentation
-being in other programming languages (particularly on the iOS application),
-impeded the development workflow, frequently slowing it to a crawl. At the end
-of the project, it is difficult to say if significant time was saved by using
-Xamarin over the two platforms' `native' development tools. However, anyone
-considering these options should note that recent developments to Visual Studio
-and the Xamarin framework have significantly improved performance, which may somewhat
-mitigate these issues.
+\begin{figure*}
+  \centering
+  \includegraphics[width=0.85\columnwidth]{images/chapter05/webResults.png}
+  \caption[The OurPlace website: the user's responses]{Viewing the user's uploaded responses on the OurPlace website. Top: the user can see all of their uploaded responses to Activities. Bottom: When a response is clicked, the user is shown its contents, in a format similar to the OurPlace mobile app.}~\label{fig:websiteResults}
+\end{figure*}
 
-\subsection{A Brief Tour of the OurPlace Visual Studio Solution}
+A version of this page can also be accessed through the URL supplied by the `share' icon found on each card on the `Your Uploads' page. When followed, this URL will allow anyone to view the submission without needing to be signed into an account---useful for sharing uploaded results with external collaborators, without sharing account access (\hyperref[DG3]{DG3}).
+
+The `Responses' page is functionally very similar to the `Your Uploads' page, but lets the user see what other learners have submitted in response to Activities that the user has created. These responses are only made available to the user with the learner's explicit consent, given prior to uploading in the OurPlace app.
+
+\section{Overview of the Technology}
+The OurPlace platform is not insignificant, consisting of a smartphone application, a website and an online application programming interface (API). It was decided that in order to support as many schools, groups and individuals as possible, both of the main smartphone OSs should be supported (Android and iOS). As a result, some consideration had to be made as to how the platform should be implemented on a technical level. This section covers the more technical decisions that had to be made, and a brief overview of the project's technical implementation.
+
+\subsection{Use of the Xamarin Framework}
+While many cross-platform mobile applications rely on implementations such as websites or `write once, deploy anywhere' technologies, these frequently carried with them functional limitations, performance issues or unpolished user experiences. I wanted the application to provide a high quality experience which conformed to each mobile platform's expected design metaphors, supported access to all of the devices' hardware features and didn't require a constant internet connection, which these options didn't support (at the time). Previously, the solution would be to develop completely `native' applications, resulting in having to produce software in multiple programming languages: for example, Android applications are usually written in either Java or Kotlin, whereas iPhone apps are written in Objective-C. As I was the only developer on the project, dedicating large amounts of time to learning, developing, iterating and maintaining systems across multiple languages was unrealistic. 
+
+In the end, the decision was made to develop the mobile applications using the Xamarin Framework. This framework takes code written in C\# and compiles it into `native' applications, meaning that apps look, feel and act like software written in the different platforms' specific languages. This gave the advantage of sharing the same programming language across both applications, without losing out on any major features and allowing for common code (functionality identical across the two applications, e.g. making requests to the server) to be shared across the projects. To fully capitalise on this code sharing advantage, it was decided to take this further and produce the website and API in C\#. As a result, every component of the OurPlace platform can be opened within the same Visual Studio `solution', significantly speeding up the development process.
+
+While developing the mobile applications with the Xamarin framework significantly reduced to upfront time investment in the development process, it had trade-offs which became more apparent as the project grew. Having all of the OurPlace code available within one solution (discussed in \ref{sec:OurPlaceSolution}) was certainly convenient and minimised code duplication, but when combined with Xamarin's more demanding build process it created large performance overheads. This, combined with issues of documentation being in other programming languages (particularly on the iOS application), impeded the development workflow, frequently slowing it to a crawl. At the end of the project, it is difficult to say if significant time was saved by using Xamarin over the two platforms' `native' development tools. However, anyone considering these options should note that recent developments to Visual Studio and the Xamarin framework have significantly improved performance, which may somewhat mitigate these issues.
+
+\subsection{The OurPlace Visual Studio Solution}
 \label{sec:OurPlaceSolution}
-All of the OurPlace code is open source, and can be viewed at
-\url{https://github.com/GSDan/OurPlace}. Using C\# and Microsoft's .NET Framework
-across the OurPlace platform afforded it being accessible within a single Visual
-Studio solution, split into four smaller component projects:
-\textit{OurPlace.Common}, \textit{OurPlace.API}, \textit{OurPlace.Android} and
-\textit{OurPlace.iOS}.
+All of the OurPlace code is open source, and can be viewed at \url{https://github.com/GSDan/OurPlace}. Using C\# and Microsoft's .NET Framework across the OurPlace platform afforded it being accessible within a single Visual Studio solution, split into four smaller component projects: \textit{OurPlace.Common}, \textit{OurPlace.API}, \textit{OurPlace.Android} and \textit{OurPlace.iOS}.
 
 \paragraph{OurPlace.Common}
-This is a .NET Standard 2.0 project, which acts as a `library' of functions and
-serves the other projects within the solution. It contains shared data models,
-interfaces and common core functionality, including managing the apps' local
-files, authenticating with the server, polling it for the latest OurPlace
-activities and uploading new activities and responses. This is the only project
-which is referenced from elsewhere in the solution.
+This is a .NET Standard 2.0 project, which acts as a `library' of functions and serves the other projects within the solution, avoiding duplicating large swathes of code. It contains shared data models, interfaces and common core functionality, including managing the apps' local files, authenticating with the API, polling for the latest OurPlace activities and uploading new activities and responses. This is the only project which is referenced from elsewhere in the solution.
 
 \paragraph{OurPlace.API}
-This project uses version 4.6.1 of the .NET Framework, and contains an ASP .NET
-website, a Web API 2 powered API and a Code First, Entity Framework database.
-This project is discussed in detail in section \ref{sec:ImplementationWeb}.
+This project uses version 4.6.1 of the .NET Framework, and contains an MVC ASP .NET website, a Web API 2 powered API and a Code First, Entity Framework database. User authentication for the API and website are handled through OWIN OAuth 2.0, supporting user account creation and login through both Google and Facebook. The server, database and file storage are hosted on Microsoft's Azure cloud platform, and deployed directly from within Visual Studio. All of the website's pages have been designed to work on a wide variety of device types, comfortably supporting phones, tablets, laptops and projectors.
 
 \paragraph{OurPlace.Android}
-This project contains all of the code specific to the Android application.
-Written in C\# using the Xamarin.Android framework, a `native' Android application is
-produced upon compilation, supporting devices running Android versions as old as
-4.1 (Jelly Bean, 2012) and targeting the latest features found in version 8.1
-(Oreo, 2017). This project is discussed in detail in section
-\ref{sec:ImplementationMobile}.
+This project contains all of the code specific to the Android application. Written in C\# using the Xamarin.Android framework, a `native' Android application is produced upon compilation, supporting devices running Android versions as old as 4.1 (Jelly Bean, 2012) and targeting the latest features found in version 8.1 (Oreo, 2017).
 
 \paragraph{OurPlace.iOS}
-This project contains all of the code specific to the iPhone/iPad application.
-Written in C\# using the Xamarin.iOS framework, a `native' iOS application is
-produced upon compilation. The application requires a minimum of iOS 10, which
-is supported by devices as old as the iPhone 5 (released 2012). This project is
-discussed in detail in section \ref{sec:ImplementationMobile}.
+This project contains all of the code specific to the iPhone/iPad application. Written in C\# using the Xamarin.iOS framework, a `native' iOS application is produced upon compilation. The application requires a minimum of iOS 10, which is supported by devices as old as the iPhone 5 (released 2012).
