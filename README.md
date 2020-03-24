@@ -1,4 +1,4 @@
-# Local Communities as Infrastructure for Mobile Learning
+# Local Communities as Infrastructure for Place-Based Mobile Learning
 ## Dan Richardson, PhD Thesis
 ### Supervisors: Dr Ahmed Kharrufa, Prof David Leat, Dr Kyle Montague
 
