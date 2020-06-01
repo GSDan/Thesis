@@ -51,7 +51,7 @@ As discussed in sections \ref{sec:DigitalCivics} and \ref{sec:ParkContext}, the 
 
 ParkLearn, the prototype application discussed in Chapter \ref{chap:DesignSpace}, was further developed to meet these design goals. While the early version was created as a simple proof of concept and acted as a technology probe (with content which was hard-coded, rather than user-generated), later versions of ParkLearn featured far greater functionality, before finally being re-branded to `OurPlace' in response to the findings of the workshop detailed in section \ref{sec:HeritageParkLearnWorkshop}. This section will detail the application: its features, its implementation, and how it evolved over time into the later OurPlace app. For the sake of clarity, `OurPlace' will be used as the application's name for the rest of this chapter. Significant differences in features or implementations between ParkLearn and the final version of OurPlace will be noted explicitly.
 
-The OurPlace platform consists of three main components: a mobile application (for Android/iOS), a back-end cloud server, and a user-facing website (Figure \ref{fig:PlatformDiagram}). Core to the OurPlace platform's user experience are the acts of creating and responding to interactive digital learning activities (`Activities'). While the Activities in the prototype version of ParkLearn were hard-coded into the application, later versions allowed users to create their own Activities inside of the app, without requiring external devices or software. The main screen of the OurPlace app reflects this focus, consisting of two main sections separated by tabs: `Highlights', which shows public content created by all users, and `My Creations', which lists the Creations (Activities and/or Collections, defined below) created by the current user. The media (i.e. images, video, text, audio) created by learners in response to Activities can be uploaded to the cloud, and accessed by the learner on the accompanying OurPlace website. This website also lets users view their created OurPlace Activities and generates QR codes to make sharing them easier.
+The OurPlace platform consists of three main components: a mobile application (for Android/iOS), a back-end cloud server, and a user-facing website (Figure \ref{fig:PlatformDiagram}). Core to the OurPlace platform's user experience are the acts of creating and responding to interactive digital learning activities (`Activities'). While the Activities in the prototype version of ParkLearn were hard-coded into the application, later versions allowed users to create their own Activities inside of the app, without requiring external devices or software. The main screen of the OurPlace app reflects this focus, consisting of two main sections separated by tabs: `Highlights', which shows content created by all users which has been marked as `public', and `My Creations', which lists the Creations (Activities and/or Collections, defined below) created by the current user. The media (i.e. images, video, text, audio) created by learners in response to Activities can be uploaded to the cloud, and accessed by the learner on the accompanying OurPlace website. This website also lets users view their created OurPlace Activities and generates QR codes to make sharing them easier.
 
 \begin{figure*}
   \centering
@@ -59,7 +59,9 @@ The OurPlace platform consists of three main components: a mobile application (f
   \caption[Overview of the OurPlace platform]{An overview of the OurPlace platform, which consists of a mobile application (for Android/iOS), a back-end cloud server, and a user-facing website.}~\label{fig:PlatformDiagram}
 \end{figure*}
 
-This section details each of these components of the OurPlace platform and how they are used: how Activities are experienced by learners, how users can create their own content, and how it can be shared with others.
+As schoolchildren are one of the main target audiences for OurPlace, the platform was designed with user privacy in mind. Learners' responses to Activities (which, depending on the content of the Activity, could potentially include sensitive data, such as images of the children completing it) are not shared with the Activity's creator without the learner's expressed consent first being given.  Similarly, Activities can be marked as `private' rather than `public', meaning that they cannot be found by others on the platform without the author first distributing the Activity's generated share or QR codes. 
+
+This section details each of the core components of the OurPlace platform and how they are used: how Activities are experienced by learners, how users can create their own content, and how that content can be shared with others.
 
 \subsection{The Anatomy of an Activity}
 \label{sec:ActivityOverview}
@@ -88,84 +90,99 @@ The OurPlace app also features the concept of `Follow-Up Tasks', which were also
 
 \subsection{Overview of Task Types}
 \label{sec:TaskTypes}
-Below are all of the Task Types available to users creating Activities in the OurPlace application. Unless noted otherwise, the functionality of each Task Type was identical between ParkLearn and OurPlace. All Task Types contain a some sort of textual description or instruction, with a `text to speech' button which reads the description aloud when pressed (addressing \hyperref[DG4]{DG4}). If a Task has an interaction for the learner to perform, it will either be assigned to an `action button' (e.g. `TAKE PHOTO' and `START' in Figure \ref{fig:FollowUpTasks}) which will navigate to a new screen in the app, or take place on the Activity's main screen (e.g. Multiple Choice and Text Entry in Figure \ref{fig:TaskTypes3}). 
+Table \ref{tab:TaskTypes} lists all of the Task Types as they are listed to users creating Activities in the OurPlace application. This section goes into more detail about the implementation of each. Unless noted otherwise, the functionality of each Task Type was identical between ParkLearn and OurPlace. All Task Types contain a some sort of textual description or instruction, with a `text to speech' button which reads the description aloud when pressed (addressing \hyperref[DG4]{DG4}). If a Task has an interaction for the learner to perform, it will either be assigned to an `action button' (e.g. `TAKE PHOTO' and `START' in Figure \ref{fig:FollowUpTasks}) which will navigate to a new screen in the app, or take place on the Activity's main screen (e.g. Multiple Choice and Text Entry in Figure \ref{fig:TaskTypes3}). 
 
+\begin{figure*}
 {\RaggedRight
-\begin{tabularx}{0.95\textwidth}{ p{13mm} | p{30mm} X}
+\begin{tabularx}{\textwidth}{ p{13mm} | p{25mm} X X}
     {\small\textit{Icon}} 
     & {\small\textit{Name}}
-    & {\small\textit{Description}}\\
+    & {\small\textit{In-App Description}}
+    & {\small\textit{Creation Metadata}}\\
     \midrule
     \raisebox{-7mm}{\includegraphics[width=12mm, height=12mm]{images/chapter05/icons/task_info.png}}
     & {\footnotesize Information }
-    & {\footnotesize Some additional information about the activity's topic, with an optional accompanying image. } \\
+    & {\footnotesize Some additional information about the activity's topic, with an optional accompanying image. }
+    & {\footnotesize An image (optional) and valid external URL (optional)}\\
     \hline
     \raisebox{-7mm}{\includegraphics[width=12mm, height=12mm]{images/chapter05/icons/task_listen.png}}
     & {\footnotesize Listen to Audio} 
-    & \footnotesize Listen to a given audio recording.  \\
+    & \footnotesize Listen to a given audio recording.  
+    & {\footnotesize An audio file (.mp3)}\\
     \hline
     \raisebox{-7mm}{\includegraphics[width=12mm, height=12mm]{images/chapter05/icons/task_photo.png}}
     & {\footnotesize Take a Photo} 
-    & {\footnotesize Take a photograph using the device's camera.}  \\
+    & {\footnotesize Take a photograph using the device's camera.}  
+    & {\footnotesize None }\\
     \hline
     \raisebox{-7mm}{\includegraphics[width=12mm, height=12mm]{images/chapter05/icons/task_photoMatch.png}}
     & {\footnotesize Photo Match} 
-    & {\footnotesize Use the camera to match an existing photo.}  \\
+    & {\footnotesize Use the camera to match an existing photo.}  
+    & {\footnotesize The photo to match (optional, see details below)}\\
     \hline
     \raisebox{-7mm}{\includegraphics[width=12mm, height=12mm]{images/chapter05/icons/task_draw.png}}
     & {\footnotesize Draw a Picture} 
-    & {\footnotesize Use the paint tool to draw a picture!}  \\
+    & {\footnotesize Use the paint tool to draw a picture!}
+    & {\footnotesize None }\\
     \hline
     \raisebox{-7mm}{\includegraphics[width=12mm, height=12mm]{images/chapter05/icons/task_drawPhoto.png}}
     & {\footnotesize Draw on Photo} 
-    & {\footnotesize Use the paint tool to draw on top of a taken photo!}  \\
+    & {\footnotesize Use the paint tool to draw on top of a taken photo!}
+    & {\footnotesize The image to draw on top of (optional, see details below)}\\
     \hline
     \raisebox{-7mm}{\includegraphics[width=12mm, height=12mm]{images/chapter05/icons/task_recVideo.png}}
     & {\footnotesize Record Video} 
-    & {\footnotesize Record a video using the camera.}  \\
+    & {\footnotesize Record a video using the camera.}
+    & {\footnotesize None }\\
     \hline
     \raisebox{-7mm}{\includegraphics[width=12mm, height=12mm]{images/chapter05/icons/task_recAudio.png}}
     & {\footnotesize Record Audio} 
-    & {\footnotesize Record an audio clip using the device's microphone.}  \\
+    & {\footnotesize Record an audio clip using the device's microphone.}
+    & {\footnotesize None}\\
     \hline
     \raisebox{-7mm}{\includegraphics[width=12mm, height=12mm]{images/chapter05/icons/task_mapMark.png}}
     & {\footnotesize Map Marking} 
-    & {\footnotesize Mark your location onto a map.}  \\
+    & {\footnotesize Mark your location onto a map.}
+    & {\footnotesize Minimum and maximum number of locations, plus toggle to restrict to learner's current location}\\
     \hline
     \raisebox{-7mm}{\includegraphics[width=12mm, height=12mm]{images/chapter05/icons/task_locHunt.png}}
     & {\footnotesize Location Hunt} 
-    & {\footnotesize Hunt down a given coordinate using a tracking tool!}  \\
+    & {\footnotesize Hunt down a given coordinate using a tracking tool!}
+    & {\footnotesize A location from a Google Map (lat/long)}\\
     \hline
     \raisebox{-7mm}{\includegraphics[width=12mm, height=12mm]{images/chapter05/icons/task_scan.png}}
     & {\footnotesize Scan the QR Code} 
-    & {\footnotesize Find and scan the correct QR code.}  \\
+    & {\footnotesize Find and scan the correct QR code.}
+    & {\footnotesize None }\\
     \hline
     \raisebox{-7mm}{\includegraphics[width=12mm, height=12mm]{images/chapter05/icons/task_multChoice.png}}
     & {\footnotesize Multiple Choice} 
-    & {\footnotesize Choose an answer from a given set of options.}  \\
+    & {\footnotesize Choose an answer from a given set of options.}
+    & {\footnotesize At least 2 options}\\
     \hline
     \raisebox{-7mm}{\includegraphics[width=12mm, height=12mm]{images/chapter05/icons/task_text.png}}
     & {\footnotesize Text Entry} 
-    & {\footnotesize Enter a written response into a text field.}  \\
+    & {\footnotesize Enter a written response into a text field.}
+    & {\footnotesize None }\\
 \end{tabularx}
 }
-\captionof{table}{The Task Types available within OurPlace, as described in the mobile application.}~\label{tab:TaskTypes}
+\captionof{table}[The Task Types available within OurPlace.]{The Task Types available within OurPlace, with their descriptions as shown in the mobile application and the data they require during the Activity creation process (in addition to a written description/instruction).}~\label{tab:TaskTypes}
+\end{figure*}
 
+\subsubsection*{Information}
+One of the simplest Task Types, this presents the learner with a piece of text to read. Optionally, the Activity author can also choose to include an image to accompany the text, as well as a hyperlink to a related web page. If included, the hyperlink is assigned to the Task's action button, which will open the address in the device's default web browser when pressed [Figure \ref{fig:TaskTypes1}.a]. The ability to assign custom images and arbitrary URLs opens up opportunities for Activity creators to further promote their own materials and transition users onto other platforms (addresses \hyperref[DG3]{DG3}). Because Information Tasks are passive (and the action button is optional) they are marked as completed by default, meaning any Follow-Up Tasks are immediately visible.
+
+\subsubsection*{Listen to Audio}
+The learner is given an audio recording to listen to. Tapping the Task's action button will open up a media player screen, where the audio file plays on a loop until closed [Figure \ref{fig:TaskTypes1}.b]. The Task is marked as completed when the media player is closed. The original ParkLearn application was slightly different, in that the audio played from the Activity's main screen, with a simple `stop' button being shown on a pop-up. The OurPlace implementation improves upon this by allowing the user to `scrub' through the audio file to any given timestamp. As they do not require the reading of text, Listen to Audio Tasks support those who may struggle with reading due to their eyesight or reading comprehension (supporting \hyperref[DG4]{DG4}). Furthermore, they do not require the learner's attention to be actively on the device while listening, allowing fewer distractions from the authentic learning environment (addressing \hyperref[DG5]{DG5}).
 
 \begin{figure*}
   \centering
   \includegraphics[width=1\columnwidth]{images/chapter05/tasktypes1.png}
   \caption[Task Types (part 1)]{Task Types (left to right): a) Information; b) Listen to Audio; c) Take a Photo; d) Photo Match}~\label{fig:TaskTypes1}
 \end{figure*}
-
-\subsubsection*{Information}
-One of the simplest Task Types, this presents the learner with a piece of text to read. Optionally, the Activity author can also choose to include an image to accompany the text, as well as a hyperlink to a related web page. If included, the hyperlink is assigned to the Task's action button, which will open the address in the device's default web browser when pressed [Figure \ref{fig:TaskTypes1}.a]. because they are passive (and the action button is optional), Information Tasks are marked as completed by default, meaning any Follow-Up Tasks are immediately visible.
-
-\subsubsection*{Listen to Audio}
-The learner is given an audio recording to listen to. Tapping the Task's action button will open up a media player screen, where the audio file plays on a loop until closed [Figure \ref{fig:TaskTypes1}.b]. The Task is marked as completed when the media player is closed. The original ParkLearn application was slightly different, in that the audio played from the Activity's main screen, with a simple `stop' button being shown on a pop-up. The OurPlace implementation improves upon this by allowing the user to `scrub' through the audio file to any given timestamp.
     
 \subsubsection*{Take a Photo}
-This Task Type asks the learner to take one or more photos of a subject. The action button opens up a simple camera screen [Figure \ref{fig:TaskTypes1}.c]. Whilst mobile applications would normally use the device's default camera application, the app's other camera-related Task Types have more complex requirements, requiring custom solutions. For the sake of consistency, that custom camera screen is also used for this simpler interaction (\hyperref[DG4]{DG4}). When a photo is taken, the camera closes and returns to the Activity screen. Multiple photos can be taken, and are listed below the Task's action button [Figure \ref{fig:MediaViewer}.a]. Tapping one of these will open it in the media viewer screen, where the user can see a larger view of the photo, with the option to delete it by tapping a bin icon [Figure \ref{fig:MediaViewer}.b]. The original ParkLearn app did not have this media viewer screen, however unwanted photos could still be deleted through a `tap and hold' interaction on the images.
+This Task Type asks the learner to take one or more photos of a subject. The action button opens up a simple camera screen [Figure \ref{fig:TaskTypes1}.c]. Whilst mobile applications would normally use the device's default camera application, the app's other camera-related Task Types have more complex requirements, requiring custom solutions. For the sake of consistency, that custom camera screen is also used for this simpler interaction (\hyperref[DG4]{DG4}). When a photo is taken, the camera closes and returns to the Activity screen. Multiple photos can be taken, and are listed below the Task's action button [Figure \ref{fig:MediaViewer}.a]. Tapping one of these will open it in the media viewer screen, where the user can see a larger view of the photo, with the option to delete it by tapping a bin icon [Figure \ref{fig:MediaViewer}.b]. The original ParkLearn app did not have this media viewer screen, however unwanted photos could still be deleted through a `tap and hold' interaction on the images. Photo Tasks serve as a way to `capture' glimpses of the physical learning context for later review elsewhere (\hyperref[DG1]{DG1}, \hyperref[DG2]{DG2}), and their `point and click' interaction is easily understood by learners of all ages (\hyperref[DG4]{DG4}).
 
 \begin{figure*}
   \centering
@@ -174,7 +191,7 @@ This Task Type asks the learner to take one or more photos of a subject. The act
 \end{figure*}
 
 \subsubsection*{Photo Match}
-This is similar to `Take a Photo', in that the learner is asked to take one or more photos of a subject. However, the camera screen shows a semi-transparent overlay of another image on top of the camera feed [Figure \ref{fig:TaskTypes1}.d]. The Activity author provides an image of their own choosing (e.g. a photo they have taken, or downloaded from the Internet). Viewing and deleting resulting images is handled the same as in Take a Photo. This extremely basic form of augmented reality is simple enough for users to configure themselves, while still hopefully supporting the grounding of the digital content in the physical environment \citep{javornik2019}. 
+This is similar to `Take a Photo', in that the learner is asked to take one or more photos of a subject. However, the camera screen shows a semi-transparent overlay of another image on top of the camera feed [Figure \ref{fig:TaskTypes1}.d]. The Activity author provides an image of their own choosing (e.g. a photo they have taken, or downloaded from the Internet). Viewing and deleting resulting images is handled the same as in Take a Photo. This extremely basic form of augmented reality is simple enough for users to configure themselves, while still hopefully supporting the grounding of the digital content in the physical environment \citep{javornik2019}. This supports Activity creators in promoting more `guided' photography-based Tasks, sacrificing learner agency for a more scaffolded experience (supporting \hyperref[DG3]{DG3}).
 
 \begin{figure*}
   \centering
@@ -183,16 +200,16 @@ This is similar to `Take a Photo', in that the learner is asked to take one or m
 \end{figure*}
 
 \subsubsection*{Draw a Picture}
-The learner is asked to draw a picture, using a basic painting interface which is launched by tapping the Task's action button. A wide variety of colours can be selected using the selector at the top of the screen, and drawn onto a blank white canvas [Figure \ref{fig:TaskTypes2}.a]. Tapping the save icon will save the drawing as a JPEG file and return to the Activity screen, where it can be viewed/deleted in the same way as photo files. Multiple drawings can be made.
+The learner is asked to draw a picture, using a basic painting interface which is launched by tapping the Task's action button. A wide variety of colours can be selected using the selector at the top of the screen, and drawn onto a blank white canvas [Figure \ref{fig:TaskTypes2}.a]. Tapping the save icon will save the drawing as a JPEG file and return to the Activity screen, where it can be viewed/deleted in the same way as photo files. Multiple drawings can be made. While drawings made on a phone screen are inherently of a low fidelity, as an interaction it still offers learners a large degree of creative expression (\hyperref[DG5]{DG5}).
 
 \subsubsection*{Draw on Photo}
-Functionally the same as `Draw a Picture', however the blank white canvas is replaced by a supplied image [Figure \ref{fig:TaskTypes2}.b]. The Activity author can either provide an image of their own choosing (e.g. a photo they have taken, or downloaded from the Internet), or---if this is a Follow-Up Task to an appropriate parent, such as a Take a Photo or Photo Match---have the overlay be one of the images taken by the learner in the parent Task. Images can be viewed and deleted in the same way as other photos and drawings.
+Functionally the same as `Draw a Picture', however the blank white canvas is replaced by a supplied image [Figure \ref{fig:TaskTypes2}.b]. The Activity author can either provide an image of their own choosing (e.g. a photo they have taken, or downloaded from the Internet), or---if this is a Follow-Up Task to an appropriate parent, such as a Take a Photo or Photo Match---have the overlay be one of the images taken by the learner in the parent Task. This choice means that the Task Type can either be used to provide scaffolding---similar to the Photo Match Tasks (supporting \hyperref[DG3]{DG3})---or an even greater degree of learner expression, building and reflecting upon the learner's previously created materials (supporting \hyperref[DG5]{D5}). Images can be viewed and deleted in the same way as other photos and drawings. 
 
 \subsubsection*{Record Video}
 Learners are asked to record a video of a subject using the camera, which is launched by tapping the action button. The camera screen is locked in the landscape orientation, and features a help button which will show the Task's description/instruction when pressed [Figure \ref{fig:TaskTypes2}.c]. Recording starts when the shutter button is tapped, at which point the button turns red. To minimise storage issues, a custom video recorder screen was implemented, which caps video recordings at 10 minutes in length and at a 720p resolution (\hyperref[DG6]{DG6}). When the shutter button is pressed again (or the 10 minutes elapses), the video is saved and the user is returned to the Activity screen. Multiple videos can be recorded, and thumbnails for each are listed below the Task (as with the photo results). Tapping a video file will open it in the media screen, where it can be replayed and deleted as desired.
 
 \subsubsection*{Record Audio}
-Learners are asked to record an audio clip using the device's microphone. Tapping the action button opens a separate recording screen, showing a start/stop record button, record timer and the current Task's instruction for easy reference [Figure \ref{fig:TaskTypes2}.d]. After pressing stop to finish the recording, the learner can immediately listen back to it and confirm they're happy with it. If content, learners can save the file, which returns them back to the Activity screen. Recorded audio clips are listed below the task: tapping one will open it in the media screen, where it can be replayed and deleted as desired.
+Learners are asked to record an audio clip using the device's microphone. Tapping the action button opens a separate recording screen, showing a start/stop record button, record timer and the current Task's instruction for easy reference [Figure \ref{fig:TaskTypes2}.d]. After pressing stop to finish the recording, the learner can immediately listen back to it and confirm they're happy with it. If content, learners can save the file, which returns them back to the Activity screen. Recorded audio clips are listed below the task: tapping one will open it in the media screen, where it can be replayed and deleted as desired. Audio recordings are a good format for in-situ reflection (\hyperref[DG5]{DG5}), as creating them requires less time, effort, and writing proficiency (\hyperref[DG4]{DG4}), and doesn't completely take learners' attention away from the environment.
 
 \begin{figure*}
   \centering
@@ -201,16 +218,16 @@ Learners are asked to record an audio clip using the device's microphone. Tappin
 \end{figure*}
 
 \subsubsection*{Map Marking}
-This is the only Task Type which requires an active Internet connection during use, and so was the least frequently used in every study. It asks learners to mark a given number of locations onto a Google Map [Figure \ref{fig:TaskTypes3}.a]. The user's current location is shown on the map by a blue dot. Map markers can either be placed on the user's current location, or at custom locations by the learner tapping the map. If they desire, the Activity's author can restrict the learner to only placing markers on their current location, meaning that learners have to physically travel to places they want to mark. Learners can deleted markers they've placed by tapping them. The Activity author can also configure the minimum and maximum number of markers the learner is required to put down before completing the Task (can be set as unlimited by putting a zero as the maximum). Completing the Task will result in a small, non-interactive version of the map being shown under the Task on the Activity screen. When tapped, this will re-open the full map for editing. There were plans to re-engineer this Task Type to use OpenStreetMap instead of Google Maps due to its support for offline caching, however this didn't come to fruition due to time limitations.
+This is the only Task Type which requires an active Internet connection during use, and so was the least frequently used in every study. It asks learners to mark a given number of locations onto a Google Map [Figure \ref{fig:TaskTypes3}.a]. The user's current location is shown on the map by a blue dot. Map markers can either be placed on the user's current location, or at custom locations by the learner tapping the map. If they desire, the Activity's author can restrict the learner to only placing markers on their current location, meaning that learners have to physically travel to places they want to mark (\hyperref[DG1]{DG1}, \hyperref[DG3]{DG3}). Learners can deleted markers they've placed by tapping them. The Activity author can also configure the minimum and maximum number of markers the learner is required to put down before completing the Task (can be set as unlimited by putting a zero as the maximum). Completing the Task will result in a small, non-interactive version of the map being shown under the Task on the Activity screen. When tapped, this will re-open the full map for editing. There were plans to re-engineer this Task Type to use OpenStreetMap instead of Google Maps due to its support for offline caching, however this didn't come to fruition due to time limitations.
 
 \subsubsection*{Location Hunt}
-This uses the device's GPS, like Map Marking, but doesn't require an active Internet connection as it doesn't display a map. Instead, learners are asked to track down a target location by observing their device's distance from the target coordinates [Figure \ref{fig:TaskTypes3}.b]. A large graphic performs a `breathing' animation, getting faster/slower as the user gets closer/further away from the target. A beep is also played each time the animation loops, giving the impression of a `GPS metal detector'. The device's current GPS accuracy (in metres) is also given for context, so that the learner can be aware of poor signal (e.g. if they're indoors). Once the learner is within 10 metres of the target, a pop-up notification is shown notifying them of their arrival, and the Task is marked as completed. The OurPlace app introduced the ability for Activity authors to choose to allow learners to open up a route to the target location in Google Maps should they wish, however doing so requires an active Internet connection.
+This uses the device's GPS, like Map Marking, but doesn't require an active Internet connection as it doesn't display a map. Instead, learners are asked to track down a target location by observing their device's distance from the target coordinates [Figure \ref{fig:TaskTypes3}.b] (\hyperref[DG1]{DG1}). A large graphic performs a `breathing' animation, getting faster/slower as the user gets closer/further away from the target. A beep is also played each time the animation loops, giving the impression of a `GPS metal detector'. The device's current GPS accuracy (in metres) is also given for context, so that the learner can be aware of poor signal (e.g. if they're indoors). Once the learner is within 10 metres of the target, a pop-up notification is shown notifying them of their arrival, and the Task is marked as completed. The OurPlace app introduced the ability for Activity authors to choose to allow learners to open up a route to the target location in Google Maps should they wish, however doing so requires an active Internet connection.
 
 \subsubsection*{Scan the QR Code}
-Learners are asked to find and scan a specific QR (Quick Response) code, with the Task's instruction ideally acting as a clue to find it. Tapping the action button opens up the application's built-in QR code scanner. Scanning the wrong code shows a failure message (`\textit{That's not it!}'), while finding and scanning the correct code completes the Task. The Activity's author can view and print the generated QR codes from the OurPlace website. This Task Type was introduced in OurPlace, primarily to support `Location Hunt' style Tasks indoors, where GPS might not work properly.
+Learners are asked to find and scan a specific QR (Quick Response) code, with the Task's instruction ideally acting as a clue to find it. Tapping the action button opens up the application's built-in QR code scanner. Scanning the wrong code shows a failure message (`\textit{That's not it!}'), while finding and scanning the correct code completes the Task. The Activity's author can view and print the generated QR codes from the OurPlace website. This Task Type was introduced in OurPlace, primarily to support Activity authors who wanted to create `Location Hunt' style Tasks indoors, where GPS might not work properly (\hyperref[DG1]{DG1}, \hyperref[DG3]{DG3}).
 
 \subsubsection*{Multiple Choice}
-Learners are asked to choose one of (at least two) different text options. Options are presented as a list of radio buttons on the main Activity screen [Figure \ref{fig:TaskTypes3}.c]. The Task is marked as completed once an item is chosen.
+Learners are asked to choose one of (at least two) different text options. Options are presented as a list of radio buttons on the main Activity screen [Figure \ref{fig:TaskTypes3}.c]. The Task is marked as completed once an item is chosen. While extremely basic, this Task Type was added as it was used frequently within teachers' and park rangers' worksheets (\hyperref[DG3]{DG3}).
 
 \subsubsection*{Text Entry}
 Learners are asked to enter some text into a text field on the main Activity screen [Figure \ref{fig:TaskTypes3}.d] using the device's default virtual keyboard. Virtual keyboard apps vary per device, with some also allowing for `voice typing', where learners can speak into the microphone for real-time text transcription. Regardless of input method, the Task is marked as completed once at least one character has been entered into the text field. 
