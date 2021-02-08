@@ -278,6 +278,9 @@ supported!}
   \temptableofcontents
 }
 
+\RequirePackage{tabulary}
+\usepackage{placeins}
+
 % *************************** Graphics and Figures *****************************
 \RequirePackage[usenames, dvipsnames]{color}
 \ifpdf
@@ -979,11 +982,8 @@ wish to left align your text}
 
 \newenvironment{dedication}
 {
-\cleardoublepage
-\setsinglecolumn
-\vspace*{0.2\textheight}
+\chapter*{\centering \normalfont\fontsize{14}{15}\bfseries Dedication}
 \thispagestyle{empty}
-\centering
 }
 
 
