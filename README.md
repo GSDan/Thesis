@@ -1,6 +1,6 @@
 # Local Communities as Infrastructure for Place-Based Mobile Learning
 ## Dan Richardson, PhD Thesis
-### Supervisors: Dr Ahmed Kharrufa, Prof David Leat, Dr Kyle Montague
+### Supervisors: Dr Ahmed Kharrufa
 
 The last decade has seen a significant reconfiguration of the UK’s public services through policies of austerity. Severe funding cuts have been made to many local councils, resulting in various services—such as the upkeep of local parks, and educational activities within them—to be cut from some authorities’ funding altogether, with their upkeep instead relying upon volunteerism or charges. Coinciding with an increase in the use of mobile technologies in schools, stakeholder groups are frequently also turning to them in an effort to promote the places they care for: attempting to engage with new audiences and promote the value of place to younger generations.
 
